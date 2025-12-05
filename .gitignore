@@ -361,3 +361,12 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/AdventOfCode2025/Puzzles/puzzle1.txt
+/AdventOfCode2025/Puzzles/puzzle2.txt
+/AdventOfCode2025/Puzzles/puzzle3.txt
+/AdventOfCode2025/Puzzles/puzzle4.txt
+/AdventOfCode2025/Puzzles/puzzle4test.txt
+/AdventOfCode2025/Puzzles/puzzle5.txt
+/AdventOfCode2025/Puzzles/puzzle5test.txt
+/AdventOfCode2025/Puzzles/puzzle6.txt
+/AdventOfCode2025/Puzzles/puzzle6test.txt
