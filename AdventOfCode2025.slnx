@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="AdventOfCode.Domain/AdventOfCode.Domain.csproj" Id="ea20cbb7-c292-434f-9196-667a2c9a830a" />
+  <Project Path="AdventOfCode.Infrastructure/AdventOfCode.Infrastructure.csproj" Id="b897c2f1-d91c-4840-a6d5-d01c9a68371e" />
+  <Project Path="AdventOfCode2025/AdventOfCode2025.csproj" />
+</Solution>
