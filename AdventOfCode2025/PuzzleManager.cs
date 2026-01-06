@@ -1,9 +1,13 @@
 ﻿using AdventOfCode.Domain.Common.IO;
 using AdventOfCode.Infrastructure.Common.IO;
+using AdventOfCode.Infrastructure.Tools.ButtonPressing;
+using AdventOfCode.Infrastructure.Tools.Dimension;
 using AdventOfCode.Infrastructure.Tools.Forklift;
+using AdventOfCode.Infrastructure.Tools.Laser;
 using AdventOfCode.Infrastructure.Tools.Lock;
 using AdventOfCode.Infrastructure.Tools.PowerBank;
 using AdventOfCode.Infrastructure.Tools.ProductID;
+using AdventOfCode.Infrastructure.Tools.ServerRack;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -211,7 +215,230 @@ namespace AdventOfCode2025
             }
             else
             {
+                const bool part2 = true;
 
+                List<long> finalValues = new List<long>();
+
+                List<string> operations = new List<string>();
+
+                foreach (var charVal in fileContent.Last())
+                {
+                    operations.Add(charVal.ToString());
+                }
+
+                if (part2)
+                {
+                    List<string> fakeFileContent = new List<string>();
+
+                    var length = operations.Count;
+
+                    List<long> values = new List<long>();
+                    string currentString = "";
+                    for (int i = length - 1; i >= 0; --i)
+                    {
+                        for (int j = 0; j < fileContent.Count; ++j)
+                        {
+                            if (j == fileContent.Count - 1)
+                            {
+                                values.Add(Convert.ToInt64(currentString.Trim()));
+                                currentString = "";
+
+                                if (fileContent[j][i] != ' ')
+                                {
+
+                                    for (int x = 0; x < values.Count; ++x)
+                                    {
+                                        long currentValue = values[x];
+                                        if (x == 0)
+                                        {
+                                            finalValues.Add(currentValue);
+                                        }
+                                        else
+                                        {
+
+                                            switch (fileContent[j][i])
+                                            {
+                                                case '+':
+                                                    Console.WriteLine(finalValues[finalValues.Count - 1] + " + " + currentValue);
+                                                    finalValues[finalValues.Count - 1] += currentValue;
+                                                    break;
+                                                case '*':
+                                                    Console.WriteLine(finalValues[finalValues.Count - 1] + " * " + currentValue);
+                                                    finalValues[finalValues.Count - 1] *= currentValue;
+                                                    break;
+                                                case '-':
+                                                    Console.WriteLine(finalValues[finalValues.Count - 1] + " - " + currentValue);
+                                                    finalValues[finalValues.Count - 1] -= currentValue;
+                                                    break;
+                                                case '/':
+                                                    Console.WriteLine(finalValues[finalValues.Count - 1] + " / " + currentValue);
+                                                    finalValues[finalValues.Count - 1] /= currentValue;
+                                                    break;
+                                            }
+                                        }
+                                    }
+                                    --i;
+                                    values.Clear();
+                                }
+                            }
+                            else
+                            {
+                                var val = fileContent[j][i];
+                                currentString += val;
+                            }
+                        }
+
+                    }
+
+                }
+
+                Console.WriteLine("Final Result pt2: " + finalValues.Sum());
+
+                operations = fileContent.Last().Split(' ').ToList();
+                operations.RemoveAll(i => i == "");
+                finalValues.Clear();
+
+                for (int i = 0; i < fileContent.Count - 1; ++i)
+                {
+                    var currentRow = fileContent[i].Split(' ').ToList();
+                    currentRow.RemoveAll(i => i == "");
+
+                    for (int j = 0; j < currentRow.Count; ++j)
+                    {
+                        long currentValue = Convert.ToInt64(currentRow[j]);
+
+                        if (i == 0)
+                        {
+                            Console.WriteLine("Added to list: " + currentValue);
+                            finalValues.Add(currentValue);
+                        }
+                        else
+                        {
+
+                            switch (operations[j])
+                            {
+                                case "+":
+                                    Console.WriteLine(finalValues[j] + " + " + currentValue);
+                                    finalValues[j] += currentValue;
+                                    break;
+                                case "*":
+                                    Console.WriteLine(finalValues[j] + " * " + currentValue);
+                                    finalValues[j] *= currentValue;
+                                    break;
+                                case "-":
+                                    Console.WriteLine(finalValues[j] + " - " + currentValue);
+                                    finalValues[j] -= currentValue;
+                                    break;
+                                case "/":
+                                    Console.WriteLine(finalValues[j] + " / " + currentValue);
+                                    finalValues[j] /= currentValue;
+                                    break;
+                            }
+
+                            Console.WriteLine(finalValues[j]);
+                        }
+                    }
+
+                }
+
+                Console.WriteLine("Final Result pt1: " + finalValues.Sum());
+
+            }
+        }
+        public static void Puzzle7(string filepath)
+        {
+            IFileService fileService = new FileService();
+            var fileContent = fileService.ReadLines(filepath).Result;
+
+            if (fileContent is null || fileContent.Count <= 0)
+            {
+                Console.WriteLine("File is null or empty");
+            }
+            else
+            {
+                var result = LaserManger.countSplits(fileContent);
+
+                Console.WriteLine("Num splits: " + result);
+            }
+        }
+        public static void Puzzle8(string filepath)
+        {
+            IFileService fileService = new FileService();
+            var fileContent = fileService.ReadLines(filepath).Result;
+
+            if (fileContent is null || fileContent.Count <= 0)
+            {
+                Console.WriteLine("File is null or empty");
+            }
+            else
+            {
+                var result = EuclideanCalculator.ChainBuilding(fileContent);
+
+                Console.WriteLine($"result : {result}");
+            }
+        }
+        public static void Puzzle9(string filepath)
+        {
+            IFileService fileService = new FileService();
+            var fileContent = fileService.ReadLines(filepath).Result;
+
+            if (fileContent is null || fileContent.Count <= 0)
+            {
+                Console.WriteLine("File is null or empty");
+            }
+            else
+            {
+                var result = EuclideanCalculator.RectangleFinder(fileContent);
+
+                Console.WriteLine($"result : {result}");
+            }
+        }
+        public static void Puzzle10(string filepath)
+        {
+            IFileService fileService = new FileService();
+            var fileContent = fileService.ReadLines(filepath).Result;
+
+            if (fileContent is null || fileContent.Count <= 0)
+            {
+                Console.WriteLine("File is null or empty");
+            }
+            else
+            {
+                var result = ButtonMachineCalculator.CaculatePushes(fileContent);
+
+                Console.WriteLine($"result : {result}");
+            }
+        }
+        public static void Puzzle11(string filepath)
+        {
+            IFileService fileService = new FileService();
+            var fileContent = fileService.ReadLines(filepath).Result;
+
+            if (fileContent is null || fileContent.Count <= 0)
+            {
+                Console.WriteLine("File is null or empty");
+            }
+            else
+            {
+                var result = ServerRackCalculator.CalculateYouToOut(fileContent);
+
+                Console.WriteLine($"result : {result}");
+            }
+        }
+        public static void Puzzle12(string filepath)
+        {
+            IFileService fileService = new FileService();
+            var fileContent = fileService.ReadLines(filepath).Result;
+
+            if (fileContent is null || fileContent.Count <= 0)
+            {
+                Console.WriteLine("File is null or empty");
+            }
+            else
+            {
+                var result = "";// ButtonMachineCalculator.CaculatePushes(fileContent);
+
+                Console.WriteLine($"result : {result}");
             }
         }
     }

@@ -7,6 +7,8 @@ namespace AdventOfCode.Infrastructure.Tools.Lock
     public enum Direction
     {
         Right,
-        Left
+        Left,
+        Up,
+        Down
     }
 }

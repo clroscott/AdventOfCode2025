@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Puzzles\puzzle11test2.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AdventOfCode.Infrastructure\AdventOfCode.Infrastructure.csproj" />
   </ItemGroup>
 

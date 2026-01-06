@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -45,6 +46,9 @@ namespace AdventOfCode.Infrastructure.Tools.ProductID
 
         public Tuple<long, long> FreshCounter(List<string> ranges, List<string> valuesToCheck)
         {
+
+
+
             long freshFruitListed = 0;
             long totalPotentialFresh = 0;
 
